@@ -1,0 +1,47 @@
+{% extends "photo/base.html" %}
+
+{% block title %}Top{% endblock %}
+{% block h1_title %}Camhook: Realtime, Live photo stream.{% endblock %}
+
+{% block body %}
+    <form action="/create", method="post">
+      {{ form }}
+      <input type="submit" value="create new camhook, start live photo stream.">
+    </form>
+
+
+    <hr />
+    <h2>Your camhook:</h2>
+    {% if your_threads %}
+        {% for thread in your_threads %}
+            <div class="thread">
+              {{ thread.modified_at|timesince }} ago.
+              <h3><a href="{{ thread.title }}">{{ thread.title }}</a> ( {{ thread.phrase }} )</h3>
+              {% for photo in thread.photos %}
+                  <img width="150px" src="/static/{{ photo }}" />
+              {% endfor %}
+            </div>
+        {% endfor %}
+    {% else %}
+        None.
+    {% endif %}
+
+
+    <hr />
+    <h2>Recent camhook:</h2>
+    {% if recent_threads %}
+        {% for thread in recent_threads %}
+            <div class="thread">
+              {{ thread.modified_at|timesince }} ago.
+              <h3><a href="{{ thread.title }}">{{ thread.title }}</a></h3>
+              {% for photo in thread.photos %}
+                  <img width="150px" src="/static/{{ photo }}" />
+              {% endfor %}
+            </div>
+        {% endfor %}
+    {% else %}
+        None.
+    {% endif %}
+
+{% endblock %}
+

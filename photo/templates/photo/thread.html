@@ -1,0 +1,64 @@
+{% extends "photo/base.html" %}
+
+{% block title %}
+{{ thread.title }}
+{% endblock %}
+
+{% block h1_title %}
+<a id="thread_title" href="{{ thread.title }}">{{ thread.title }}</a>
+{% endblock %}
+
+
+{% block body %}
+    <a href="/">return top</a>
+    <hr />
+
+    <div id="panel">
+      {% for photo in thread.photos %}
+      <div class="photo" title="{{ photo.created_at|date:"Y/n/d H:i:s" }}">
+          <img src="/static/{{ photo.thumb }}" />
+        </div>
+      {% endfor %}
+    </div>
+
+    <br /><br />
+
+<script type="text/javascript">
+$(document).ready(function(){
+  setInterval("loader()", 2000)
+});
+function loader(){
+  var thread = $('#thread_title').text()
+  var latest_time = $('div.photo').attr("title")
+  var now = Date.parse(latest_time);
+  var url = "/update/" + thread + "?last_access=" + now;
+  $.getJSON(url,
+    function(data) {
+      var photos = new Array();
+      $.each(data, function(){
+        photos.push(this);
+      });
+      if( photos.length ){
+        showEntry(photos);
+      }
+    });
+}
+
+function showEntry(photos){
+  var photo = photos.pop();
+  var img = $("<img/>");
+  img.attr('src', '/static/' + photo.thumb)
+  var div = $("<div/>");
+  div.append(img).addClass("photo").attr('title',photo.timestamp).hide();
+  $("#panel").prepend(div);
+  div.animate({
+    "height": "toggle", "opacity": "toggle"
+    }, 1000,
+    function(){
+      if(photos.length){ showEntry(photos) }
+    });
+}
+</script>
+{% endblock %}
+
+
