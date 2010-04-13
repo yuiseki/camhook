@@ -15,7 +15,7 @@
 
     <div id="panel">
       {% for photo in thread.photos %}
-      <div class="photo" title="{{ photo.created_at|date:"Y/n/d H:i:s" }}">
+        <div class="photo" title="{{ photo.created_at|date:"Y/n/d H:i:s" }}">
           <img src="/static/{{ photo.thumb }}" />
         </div>
       {% endfor %}

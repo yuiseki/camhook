@@ -6,11 +6,10 @@
 {% block body %}
     <form action="/create", method="post">
       {{ form }}
-      <input type="submit" value="create new camhook, start live photo stream.">
+      <input type="submit" value="create camhook, start photo stream">
     </form>
 
 
-    <hr />
     <h2>Your camhook:</h2>
     {% if your_threads %}
         {% for thread in your_threads %}
@@ -27,7 +26,6 @@
     {% endif %}
 
 
-    <hr />
     <h2>Recent camhook:</h2>
     {% if recent_threads %}
         {% for thread in recent_threads %}

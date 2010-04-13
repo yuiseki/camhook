@@ -81,8 +81,6 @@ def thread(request, title):
                 photo.save()
                 thread.modified_at = datetime.now()
                 thread.save()
-        except:
-            pass
         finally:
             # エラーや結果に関係なくレスポンスは返す
             return HttpResponse('hi')

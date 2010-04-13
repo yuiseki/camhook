@@ -1,0 +1,12 @@
+
+TODO:
+  - start new thread
+    - skip setinterval if thread is none
+  - support to change passphrase
+
+
+
+HOW TO USE:
+mkdir media_root
+./manage.py syncdb
+./manage.py runserver 0.0.0.0:4567
